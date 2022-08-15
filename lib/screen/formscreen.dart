@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_application_03/model/money.dart';
 
 class FormScreen extends StatefulWidget {
-  const FormScreen({Key? key}) : super(key: key);
+  const FormScreen({Key key}) : super(key: key);
 
   @override
   State<FormScreen> createState() => _FormScreenState();
@@ -13,6 +14,7 @@ class FormScreen extends StatefulWidget {
 class _FormScreenState extends State<FormScreen> {
 
   final formKey = GlobalKey<FormState>();
+  Money myMoney = Money();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,11 @@ class _FormScreenState extends State<FormScreen> {
                   "รายการ",
                   style: TextStyle(fontSize: 20),
                 ),
-                TextFormField(),
+                TextFormField(
+                  onSaved: (String name){
+                    myMoney.name = name;
+                  },
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -40,7 +46,11 @@ class _FormScreenState extends State<FormScreen> {
                   "รายรับ",
                   style: TextStyle(fontSize: 20),
                 ),
-                TextFormField(),
+                TextFormField(
+                  onSaved: (String revenue){
+                    myMoney.revenue = revenue;
+                  },
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -48,7 +58,11 @@ class _FormScreenState extends State<FormScreen> {
                   "รายจ่าย",
                   style: TextStyle(fontSize: 20),
                 ),
-                TextFormField(),
+                TextFormField(
+                  onSaved: (String expenses){
+                    myMoney.expenses = expenses;
+                  },
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -56,7 +70,11 @@ class _FormScreenState extends State<FormScreen> {
                   "คงเหลือ",
                   style: TextStyle(fontSize: 20),
                 ),
-                TextFormField(),
+                TextFormField(
+                  onSaved: (String remain){
+                    myMoney.remain = remain;
+                  },
+                ),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -64,7 +82,13 @@ class _FormScreenState extends State<FormScreen> {
                         "บันทึกข้อมูล",
                         style: TextStyle(fontSize: 20),
                       ),
-                      onPressed: () {}),
+                      onPressed: () {
+                        formKey.currentState.save();
+                        print("${myMoney.name}");
+                        print("${myMoney.revenue}");
+                        print("${myMoney.expenses}");
+                        print("${myMoney.remain}");
+                      }),
                 )
               ],
             ),

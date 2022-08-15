@@ -1,8 +1,8 @@
 class Money{
-  String list;
+  String name;
   String revenue;
   String expenses;
   String remain;
 
-  Money({required this.list,required this.revenue,required this.expenses,required this.remain});
+  Money({this.name,this.revenue,this.expenses,this.remain});
 }
