@@ -11,6 +11,9 @@ class FormScreen extends StatefulWidget {
 }
 
 class _FormScreenState extends State<FormScreen> {
+
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +23,7 @@ class _FormScreenState extends State<FormScreen> {
       body: Container(
         padding: EdgeInsets.all(20),
         child: Form(
+          key: formKey,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
