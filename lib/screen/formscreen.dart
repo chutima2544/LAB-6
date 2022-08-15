@@ -16,43 +16,57 @@ class _FormScreenState extends State<FormScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("แบบฟอร์มรายการ"),
-        ),
-        body: Container(
-          padding: EdgeInsets.all(20),
-          child: Form(
+      ),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Form(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("รายการ",style: TextStyle(fontSize: 20),),
+                Text(
+                  "รายการ",
+                  style: TextStyle(fontSize: 20),
+                ),
                 TextFormField(),
                 SizedBox(
                   height: 15,
                 ),
-                Text("รายรับ",style: TextStyle(fontSize: 20),),
+                Text(
+                  "รายรับ",
+                  style: TextStyle(fontSize: 20),
+                ),
                 TextFormField(),
                 SizedBox(
                   height: 15,
                 ),
-                Text("รายจ่าย",style: TextStyle(fontSize: 20),),
+                Text(
+                  "รายจ่าย",
+                  style: TextStyle(fontSize: 20),
+                ),
                 TextFormField(),
                 SizedBox(
                   height: 15,
                 ),
-                Text("คงเหลือ",style: TextStyle(fontSize: 20),),
+                Text(
+                  "คงเหลือ",
+                  style: TextStyle(fontSize: 20),
+                ),
                 TextFormField(),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    child: Text("บันทึกข้อมูล",
-                    style: TextStyle(fontSize: 20),
-                    ),
-                    onPressed: (){}
-                    ),
+                      child: Text(
+                        "บันทึกข้อมูล",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      onPressed: () {}),
                 )
               ],
             ),
           ),
         ),
+      ),
     );
   }
 }
