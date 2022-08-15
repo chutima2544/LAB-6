@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application_03/model/money.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({Key key}) : super(key: key);
@@ -35,6 +36,7 @@ class _FormScreenState extends State<FormScreen> {
                   style: TextStyle(fontSize: 20),
                 ),
                 TextFormField(
+                  validator: RequiredValidator(errorText: "กรุณาใส่รายการ"),
                   onSaved: (String name){
                     myMoney.name = name;
                   },
@@ -47,6 +49,7 @@ class _FormScreenState extends State<FormScreen> {
                   style: TextStyle(fontSize: 20),
                 ),
                 TextFormField(
+                  validator: RequiredValidator(errorText: "กรุณาใส่รายรับ"),
                   onSaved: (String revenue){
                     myMoney.revenue = revenue;
                   },
@@ -59,6 +62,7 @@ class _FormScreenState extends State<FormScreen> {
                   style: TextStyle(fontSize: 20),
                 ),
                 TextFormField(
+                  validator: RequiredValidator(errorText: "กรุณาใส่รายจ่าย"),
                   onSaved: (String expenses){
                     myMoney.expenses = expenses;
                   },
@@ -71,6 +75,7 @@ class _FormScreenState extends State<FormScreen> {
                   style: TextStyle(fontSize: 20),
                 ),
                 TextFormField(
+                  validator: RequiredValidator(errorText: "กรุณาใส่ยอดคงเหลือ"),
                   onSaved: (String remain){
                     myMoney.remain = remain;
                   },
@@ -83,11 +88,10 @@ class _FormScreenState extends State<FormScreen> {
                         style: TextStyle(fontSize: 20),
                       ),
                       onPressed: () {
-                        formKey.currentState.save();
-                        print("${myMoney.name}");
-                        print("${myMoney.revenue}");
-                        print("${myMoney.expenses}");
-                        print("${myMoney.remain}");
+                        if(formKey.currentState.validate()){
+                          formKey.currentState.save();
+                        print("ข้อมูล = ${myMoney.name}${myMoney.revenue}${myMoney.expenses}${myMoney.remain}");
+                        }                     
                       }),
                 )
               ],
