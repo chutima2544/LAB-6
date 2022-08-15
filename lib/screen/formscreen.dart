@@ -53,6 +53,7 @@ class _FormScreenState extends State<FormScreen> {
                   onSaved: (String revenue){
                     myMoney.revenue = revenue;
                   },
+                  keyboardType: TextInputType.number,
                 ),
                 SizedBox(
                   height: 15,
@@ -66,6 +67,7 @@ class _FormScreenState extends State<FormScreen> {
                   onSaved: (String expenses){
                     myMoney.expenses = expenses;
                   },
+                  keyboardType: TextInputType.number,
                 ),
                 SizedBox(
                   height: 15,
@@ -79,6 +81,7 @@ class _FormScreenState extends State<FormScreen> {
                   onSaved: (String remain){
                     myMoney.remain = remain;
                   },
+                  keyboardType: TextInputType.number,
                 ),
                 SizedBox(
                   width: double.infinity,
