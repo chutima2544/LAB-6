@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
             DisplayScreen()
           ]
           ),
-          backgroundColor: Colors.pink,
+          backgroundColor: Colors.orange,
           bottomNavigationBar: TabBar(
             tabs: [
               Tab(text: "บันทึกการออม",),
