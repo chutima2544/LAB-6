@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -13,95 +14,121 @@ class FormScreen extends StatefulWidget {
 }
 
 class _FormScreenState extends State<FormScreen> {
-
   final formKey = GlobalKey<FormState>();
   Money myMoney = Money();
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("แบบฟอร์มรายการ"),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Form(
-          key: formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "รายการ",
-                  style: TextStyle(fontSize: 20),
+    return FutureBuilder(
+        future: firebase,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text("Error"),
+              ),
+              body: Center(
+                child: Text("${snapshot.error}"),
+              ),
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text("แบบฟอร์มรายการ"),
+              ),
+              body: Container(
+                padding: EdgeInsets.all(20),
+                child: Form(
+                  key: formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "รายการ",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextFormField(
+                          validator:
+                              RequiredValidator(errorText: "กรุณาใส่รายการ"),
+                          onSaved: (String name) {
+                            myMoney.name = name;
+                          },
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "รายรับ",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextFormField(
+                          validator:
+                              RequiredValidator(errorText: "กรุณาใส่รายรับ"),
+                          onSaved: (String revenue) {
+                            myMoney.revenue = revenue;
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "รายจ่าย",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextFormField(
+                          validator:
+                              RequiredValidator(errorText: "กรุณาใส่รายจ่าย"),
+                          onSaved: (String expenses) {
+                            myMoney.expenses = expenses;
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "คงเหลือ",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        TextFormField(
+                          validator: RequiredValidator(
+                              errorText: "กรุณาใส่ยอดคงเหลือ"),
+                          onSaved: (String remain) {
+                            myMoney.remain = remain;
+                          },
+                          keyboardType: TextInputType.number,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              child: Text(
+                                "บันทึกข้อมูล",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              onPressed: () {
+                                if (formKey.currentState.validate()) {
+                                  formKey.currentState.save();
+                                  print(
+                                      "ข้อมูล = ${myMoney.name}${myMoney.revenue}${myMoney.expenses}${myMoney.remain}");
+                                }
+                              }),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-                TextFormField(
-                  validator: RequiredValidator(errorText: "กรุณาใส่รายการ"),
-                  onSaved: (String name){
-                    myMoney.name = name;
-                  },
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "รายรับ",
-                  style: TextStyle(fontSize: 20),
-                ),
-                TextFormField(
-                  validator: RequiredValidator(errorText: "กรุณาใส่รายรับ"),
-                  onSaved: (String revenue){
-                    myMoney.revenue = revenue;
-                  },
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "รายจ่าย",
-                  style: TextStyle(fontSize: 20),
-                ),
-                TextFormField(
-                  validator: RequiredValidator(errorText: "กรุณาใส่รายจ่าย"),
-                  onSaved: (String expenses){
-                    myMoney.expenses = expenses;
-                  },
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  "คงเหลือ",
-                  style: TextStyle(fontSize: 20),
-                ),
-                TextFormField(
-                  validator: RequiredValidator(errorText: "กรุณาใส่ยอดคงเหลือ"),
-                  onSaved: (String remain){
-                    myMoney.remain = remain;
-                  },
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      child: Text(
-                        "บันทึกข้อมูล",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        if(formKey.currentState.validate()){
-                          formKey.currentState.save();
-                        print("ข้อมูล = ${myMoney.name}${myMoney.revenue}${myMoney.expenses}${myMoney.remain}");
-                        }                     
-                      }),
-                )
-              ],
+              ),
+            );
+          }
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
             ),
-          ),
-        ),
-      ),
-    );
+          );
+        });
   }
 }
