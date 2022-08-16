@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _FormScreenState extends State<FormScreen> {
   final formKey = GlobalKey<FormState>();
   Money myMoney = Money();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
+  CollectionReference _moneyCollection = FirebaseFirestore.instance.collection("Money");
 
   @override
   Widget build(BuildContext context) {
@@ -109,11 +111,16 @@ class _FormScreenState extends State<FormScreen> {
                                 "บันทึกข้อมูล",
                                 style: TextStyle(fontSize: 20),
                               ),
-                              onPressed: () {
+                              onPressed: () async{
                                 if (formKey.currentState.validate()) {
                                   formKey.currentState.save();
-                                  print(
-                                      "ข้อมูล = ${myMoney.name}${myMoney.revenue}${myMoney.expenses}${myMoney.remain}");
+                                  await _moneyCollection.add({
+                                    "name":myMoney.name,
+                                    "revenue":myMoney.revenue,
+                                    "expenses":myMoney.expenses,
+                                    "remain":myMoney.remain
+                                  });
+                                  formKey.currentState.reset();
                                 }
                               }),
                         )
