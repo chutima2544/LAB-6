@@ -17,7 +17,7 @@ class _DisplayScreenState extends State<DisplayScreen> {
       title:Text("รายงานการออม")
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("Students").snapshots(),
+        stream: FirebaseFirestore.instance.collection("Money").snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Center(
