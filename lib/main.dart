@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_03/screen/display.dart';
 import 'package:flutter_application_03/screen/formscreen.dart';
 
 void main() {
@@ -42,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: TabBarView(
           children: [
             FormScreen(),
-            Container()
+            DisplayScreen()
           ]
           ),
           backgroundColor: Colors.pink,
