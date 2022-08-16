@@ -30,10 +30,10 @@ class _DisplayScreenState extends State<DisplayScreen> {
                 child: ListTile(
                   leading: CircleAvatar(
                     radius: 30,
-                    child: FittedBox(child: Text(document["score"])),
+                    child: FittedBox(child: Text(document["remain"])),
                   ),
-                  title: Text(document["fname"] + document["lname"]),
-                  subtitle: Text(document["email"]),
+                  title: Text(document["name"] + document["revenue"]),
+                  subtitle: Text(document["expenses"]),
                 ),
               );
             }).toList(),
